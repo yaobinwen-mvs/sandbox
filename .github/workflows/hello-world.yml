@@ -3,9 +3,19 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push, workflow_dispatch]
 jobs:
   Explore-GitHub-Actions:
-    #runs-on: ubuntu-latest
-    # TODO(ywen): Is `self-hosted` an official tag?
-    runs-on: self-hosted
+    strategy:
+      # Cancel all in-progress and queued jobs in the matrix if any job in the
+      # matrix fails.
+      fail-fast: true
+
+      # Define a single-dimension matrix so we can run the job on the two
+      # architectures: arm64 and amd64.
+      matrix:
+        # NOTE(ywen): The AMIs seem to use `x64` for amd64 images.
+        arch: ["arm64", "x64"]
+
+    # NOTE(ywen): Use `self-hosted` to run the job on self-hosted runners.
+    runs-on: [self-hosted, ${{ matrix.arch }}]
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
