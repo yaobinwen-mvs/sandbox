@@ -15,7 +15,7 @@ jobs:
         arch: ["arm64", "x64"]
 
     # NOTE(ywen): Use `self-hosted` to run the job on self-hosted runners.
-    runs-on: [self-hosted, ${{ matrix.arch }}]
+    runs-on: [self-hosted, "${{ matrix.arch }}"]
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
