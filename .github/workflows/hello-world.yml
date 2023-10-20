@@ -4,9 +4,7 @@ on: [push, workflow_dispatch]
 jobs:
   Explore-GitHub-Actions:
     strategy:
-      # Cancel all in-progress and queued jobs in the matrix if any job in the
-      # matrix fails.
-      fail-fast: true
+      fail-fast: false
 
       # Define a single-dimension matrix so we can run the job on the two
       # architectures: arm64 and amd64.
